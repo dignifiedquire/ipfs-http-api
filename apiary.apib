@@ -1,80 +1,36 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
 
 # ipfs
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+The API for interacting with IPFS nodes.
 
-## Questions Collection [/questions]
+## Add [/add{?stream%2Dchannels}]
 
-### List All Questions [GET]
+### Add a Single File [POST]
+Add a file to IPFS returning the hash and name. The name
+value will only be set if you are actually sending a file.
 
-+ Response 200 (application/json)
++ Parameters
+    + stream%2Dchannels (optional, boolean) - Should the result be returned in a streaming manner.
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
++ Request (multipart/form-data; boundary=---BOUNDARY)
 
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
+        -----BOUNDARY
+        Content-Disposition: form-data; name="image[file]"; filename="file.txt"
+        Content-Type: text/plain
+    
+        hello world
+        -----BOUNDARY
 
 + Response 201 (application/json)
 
-    + Headers
+  + Headers
 
-            Location: /questions/2
+            X-Chunked-Output: 1
 
-    + Body
+  + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "Name": "file.txt",
+                "Hash": "myhash"
             }
