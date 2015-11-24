@@ -4,16 +4,9 @@ FORMAT: 1A
 
 The API for interacting with IPFS nodes.
 
-
-# Data Structures
-
-## Hash (string)
-An IPFS hash
-
 # Group add
 
 TODO
-
 
 # Group bitswap
 A set of commands to manipulate the bitswap agent
@@ -23,27 +16,20 @@ Show some diagnostic information on the bitswap agent
 
 + Response 201 (application/json)
 
-    + Body
-    
-            {
-              "ProvideBufLen": 0,
-              "Wantlist": null,
-              "Peers": [
-                "QmNjRVohhWBX31EoaAXkrj5mPF9vQNcTVvQgWHNwdxweCN",
-                "QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64"
-              ],
-              "BlocksReceived": 0,
-              "DupBlksReceived": 0,
-              "DupDataReceived": 0
-            }
+    + Attributes (object)
+        + ProvideBufLen: 0 (number)
+        + Wantlist (array, nullable)
+        + Peers (array)
+            - QmNjRVohhWBX31EoaAXkrj5mPF9vQNcTVvQgWHNwdxweCN (Hash)
+        + BlocksReceived: 0 (number)
+        + DupBlksReceived: 0 (number)
+        + DupDataReceived: 0 (number)
 
 ## unwant [GET /bitswap/unwant{?arg}]
 Remove a given block from your wantlist
 
 + Parameters
-    + arg (required Hash) 
-    
-        key to remove from your wantlist
+    + arg (Hash, required) - key to remove from your wantlist
 
 + Response 201 (application/json)
 
@@ -52,17 +38,35 @@ Remove a given block from your wantlist
 Show blocks currently on the wantlist
 
 + Parameters
-    + peer (optional Hash) 
-    
+    + peer (Hash, optional)
+
         specify which peer to show wantlist for (default self)
 
 + Response 201 (application/json)
 
-    + Body
-
-            {
-              "Keys": null
-            }
+    + Attributes (object)
+        + Keys (array, optional)
 
 
+# Group block
 
+## block [/block/stat?{arg}]
+A plumbing command used to manipulate raw ipfs blocks.
+
+### stat [GET]
+Retrieve information on a raw ipfs block.
+
++ Parameters
+    + arg (Hash, required) - key to remove from your wantlist
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + Key: Qmb9Ru8XjPDAokAYE6rVzLwn3dEB4fxijgVMga1CcS95kJ (Hash)
+        + Size: 262158 (number) - the size of the block in bytes
+
+
+# Data Structures
+
+## Hash: QmNjRVohhWBX31EoaAXkrj5mPF9vQNcTVvQgWHNwdxweCN (string)
+An IPFS hash
