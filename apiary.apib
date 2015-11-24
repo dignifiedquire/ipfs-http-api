@@ -4,6 +4,14 @@ FORMAT: 1A
 
 The API for interacting with IPFS nodes.
 
+
+# Data Structures
+
+## Hash (string)
+An IPFS hash
+
+# Group add
+
 ## Add [/add{?stream%2Dchannels}]
 
 ### Add a Single File [POST]
@@ -35,13 +43,12 @@ value will only be set if you are actually sending a file.
                 "Hash": "myhash"
             }
 
-## bitswap [/bitswap]
+
+# Group bitswap
 A set of commands to manipulate the bitswap agent
 
-### bitswap stat [/stat]
+## stat [GET /bitswap/stat]
 Show some diagnostic information on the bitswap agent
-
-+ Request (text/plain)
 
 + Response 201 (application/json)
 
@@ -52,21 +59,39 @@ Show some diagnostic information on the bitswap agent
               "Wantlist": null,
               "Peers": [
                 "QmNjRVohhWBX31EoaAXkrj5mPF9vQNcTVvQgWHNwdxweCN",
-                "QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64",
-                "QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd",
-                "QmSoLju6m7xTh3DuokvT3886QRYqxAzb1kShaanJgW36yx",
-                "QmSoLnSGccFuZQJzRadHn95W2CrSFmZuTdDWP8HXaHca9z",
-                "QmSoLueR4xBeUbY9WZ9xGUUxunbKWcrNFTDAadQJmocnWm",
-                "QmfTbyfUhkY9PkthZ7DNBVRHPjva3vR6wLhsj7jMRUymre"
+                "QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64"
               ],
               "BlocksReceived": 0,
               "DupBlksReceived": 0,
               "DupDataReceived": 0
             }
 
+## unwant [GET /bitswap/unwant{?arg}]
+Remove a given block from your wantlist
+
++ Parameters
+    + arg (required Hash) 
+    
+        key to remove from your wantlist
+
++ Response 201 (application/json)
 
 
+## wantlist [GET /bitswap/wantlist{?peer}]
+Show blocks currently on the wantlist
 
++ Parameters
+    + peer (optional Hash) 
+    
+        specify which peer to show wantlist for (default self)
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+              "Keys": null
+            }
 
 
 
