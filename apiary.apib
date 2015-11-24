@@ -12,36 +12,7 @@ An IPFS hash
 
 # Group add
 
-## Add [/add{?stream%2Dchannels}]
-
-### Add a Single File [POST]
-Add a file to IPFS returning the hash and name. The name
-value will only be set if you are actually sending a file.
-
-+ Parameters
-    + stream%2Dchannels (optional, boolean) - Should the result be returned in a streaming manner.
-
-+ Request (multipart/form-data; boundary=---BOUNDARY)
-
-        -----BOUNDARY
-        Content-Disposition: form-data; name="image[file]"; filename="file.txt"
-        Content-Type: text/plain
-    
-        hello world
-        -----BOUNDARY
-
-+ Response 201 (application/json)
-
-  + Headers
-
-            X-Chunked-Output: 1
-
-  + Body
-
-            {
-                "Name": "file.txt",
-                "Hash": "myhash"
-            }
+TODO
 
 
 # Group bitswap
