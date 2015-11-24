@@ -34,3 +34,39 @@ value will only be set if you are actually sending a file.
                 "Name": "file.txt",
                 "Hash": "myhash"
             }
+
+## bitswap [/bitswap]
+A set of commands to manipulate the bitswap agent
+
+### bitswap stat [/stat]
+Show some diagnostic information on the bitswap agent
+
++ Request (text/plain)
+
++ Response 201 (application/json)
+
+    + Body
+    
+            {
+              "ProvideBufLen": 0,
+              "Wantlist": null,
+              "Peers": [
+                "QmNjRVohhWBX31EoaAXkrj5mPF9vQNcTVvQgWHNwdxweCN",
+                "QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64",
+                "QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd",
+                "QmSoLju6m7xTh3DuokvT3886QRYqxAzb1kShaanJgW36yx",
+                "QmSoLnSGccFuZQJzRadHn95W2CrSFmZuTdDWP8HXaHca9z",
+                "QmSoLueR4xBeUbY9WZ9xGUUxunbKWcrNFTDAadQJmocnWm",
+                "QmfTbyfUhkY9PkthZ7DNBVRHPjva3vR6wLhsj7jMRUymre"
+              ],
+              "BlocksReceived": 0,
+              "DupBlksReceived": 0,
+              "DupDataReceived": 0
+            }
+
+
+
+
+
+
+
