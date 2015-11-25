@@ -14,7 +14,7 @@ A set of commands to manipulate the bitswap agent
 ## stat [GET /bitswap/stat]
 Show some diagnostic information on the bitswap agent
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Attributes (object)
         + ProvideBufLen: 0 (number)
@@ -31,7 +31,7 @@ Remove a given block from your wantlist
 + Parameters
     + arg (Hash, required) - key to remove from your wantlist
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
 
 ## wantlist [GET /bitswap/wantlist{?peer}]
@@ -42,28 +42,45 @@ Show blocks currently on the wantlist
 
         specify which peer to show wantlist for (default self)
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Attributes (object)
         + Keys (array, optional)
 
 
 # Group block
-
-## block [/block/stat?{arg}]
 A plumbing command used to manipulate raw ipfs blocks.
 
-### stat [GET]
+## stat [GET /block/stat?{arg}]
 Retrieve information on a raw ipfs block.
 
 + Parameters
-    + arg (Hash, required) - key to remove from your wantlist
+    + arg (Hash, required) - hash of the block to retrieve stats on
 
 + Response 200 (application/json)
 
     + Attributes (object)
         + Key: Qmb9Ru8XjPDAokAYE6rVzLwn3dEB4fxijgVMga1CcS95kJ (Hash)
         + Size: 262158 (number) - the size of the block in bytes
+
+## get [GET /block/get?{arg}]
+
+Store data as a raw ipfs block.
+
++ Parameters
+    + arg (Hash, required) - hash of the block to be fetched
+
++ Response 200 (text/plain)
+
+    + Body
+
+        ```
+        hello world
+        ```
+
+## put [GET /block/put]
+TODO
+
 
 
 # Data Structures
