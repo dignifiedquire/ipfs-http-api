@@ -82,11 +82,308 @@ Store data as a raw ipfs block.
 TODO
 
 
+# Group bootstrap
+
+## add [GET /bootstrap/add]
+
++ Response 200 (text/json)
+
+## list [GET /bootstrap/list]
+
++ Response 200 (text/plain)
+
+## rm [GET /bootstrap/rm]
+
++ Response 200 (text/plain)
+
+# Group cat
+
+## cat [GET /cat]
+
++ Response 200 (text/plain)
+
+# Group commands
+
+## commands [GET /commands]
+
++ Response 200 (applications/json)
+
+# Group config
+
+## edit [GET /config/edit]
+
++ Response 200 (text/plain)
+
+## replace [GET /config/replace]
+
++ Response 200 (text/plain)
+
+## show [GET /config/show]
+
++ Response 200 (text/plain)
+
+# Group daemon
+
+# Group dht
+
+## findpeer [GET /dht/findpeer]
+
++ Response 200 (text/plain)
+
+## findprovs [GET /dht/findprovs]
+
++ Response 200 (text/plain)
+
+## get [GET /dht/get]
+
++ Response 200 (text/plain)
+
+## put [GET /dht/put]
+
++ Response 200 (text/plain)
+
+## query [GET /dht/query]
+
++ Response 200 (text/plain)
+
+# Group diag
+
+## net [GET /diag/net]
+
++ Response 200 (text/plain)
+
+## sys [GET /diag/sys]
+
++ Response 200 (text/plain)
+
+# Group dns
+
+## dns [GET /dns]
+
++ Response 200 (text/plain)
+
+# Group file
+
+## ls [GET /file/ls]
+
++ Response 200 (text/plain)
+
+# Group get
+
+## get [GET /get]
+
++ Response 200 (text/plain)
+
+# Group id
+
+## id [GET /id]
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + ID (Hash)
+        + PublicKey (string)
+        + Addresses (array)
+            - (string)
+        + AgentVersion (string)
+        + ProtocolVersion (string)
+    + Body
+        ```
+        {
+          "ID": "QmVnWL4CVWAaQHuuJQMgskDDyFwA1pqA2cC5ZTnQnB5yJt",
+          "PublicKey": "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQD8SKPSPmQp3VJJmAaOsXnNU1Qqvz/TeBFO9VeoVDAD4gapupBBUZC5f2eTnWKXMiZt7m21xSzJ5i+G16uFCY1296maoas648C66XuxxwDpf4B/K/A2C6mjqQzKgrAZDiD9WS0oS2wsGlaEbikX/KXOw9PJOYThC4zvGHoQnYqmdXiXvNbtV9ZsjpkdU420kj4FQGcti7WvAukXX2yvVsxmnDLvpFFiNY96OkFAItZhvcROXB69davEL5Uthl90gR2d+nunBPTJeO/yZUk2mtcoB9Y0Q//qnLnGY2VlZkpVBjUpq2BLWUDu72BGRsxF+QU+MHqai5lJn73MZNQl3kOVAgMBAAE=",
+          "Addresses": [
+            "/ip4/127.0.0.1/tcp/4001/ipfs/QmVnWL4CVWAaQHuuJQMgskDDyFwA1pqA2cC5ZTnQnB5yJt",
+            "/ip4/192.168.0.11/tcp/4001/ipfs/QmVnWL4CVWAaQHuuJQMgskDDyFwA1pqA2cC5ZTnQnB5yJt",
+            "/ip6/::1/tcp/4001/ipfs/QmVnWL4CVWAaQHuuJQMgskDDyFwA1pqA2cC5ZTnQnB5yJt",
+            "/ip6/fd67:d185:7678:b25b:3cd6:bb15:ff71:af88/tcp/4001/ipfs/QmVnWL4CVWAaQHuuJQMgskDDyFwA1pqA2cC5ZTnQnB5yJt",
+            "/ip4/85.216.106.69/tcp/4001/ipfs/QmVnWL4CVWAaQHuuJQMgskDDyFwA1pqA2cC5ZTnQnB5yJt",
+            "/ip4/85.216.106.69/tcp/60505/ipfs/QmVnWL4CVWAaQHuuJQMgskDDyFwA1pqA2cC5ZTnQnB5yJt",
+            "/ip4/85.216.106.69/tcp/60505/ipfs/QmVnWL4CVWAaQHuuJQMgskDDyFwA1pqA2cC5ZTnQnB5yJt"
+            ],
+          "AgentVersion": "go-ipfs/0.3.9",
+          "ProtocolVersion": "ipfs/0.1.0"
+        }
+        ```
+
+# Group init
+
+## init [GET /init]
+
++ Response 200 (text/plain)
+
+# Group log
+
+## level [GET /log/level]
+
++ Response 200 (text/plain)
+
+## tail [GET /log/tail]
+
++ Response 200 (text/plain)
+
+# Group ls
+
+## ls [GET /ls]
+
++ Response 200 (text/plain)
+
+# Group mount
+
++ Response 200 (text/plain)
+
+# Group name
+
+## publish [GET /name/publish]
+
++ Response 200 (text/plain)
+
+## resolve [GET /name/resolve]
+
++ Response 200 (text/plain)
+
+# Group object
+## data [GET /object/data]
+
++ Response 200 (text/plain)
+
+## get [GET /object/get]
+
++ Response 200 (text/plain)
+
+## links [GET /object/links]
+
++ Response 200 (text/plain)
+
+## new [GET /object/new]
+
++ Response 200 (text/plain)
+
+## patch [GET /object/patch]
+
++ Response 200 (text/plain)
+
+## put [GET /object/put]
+
++ Response 200 (text/plain)
+
+## stat [GET /object/stat]
+
++ Response 200 (text/plain)
+
+# Group pin
+## add [GET /pin/add]
+
++ Response 200 (text/plain)
+
+## ls [GET /pin/ls]
+
++ Response 200 (text/plain)
+
+## rm [GET /pin/rm]
+
++ Response 200 (text/plain)
+
+# Group ping
+
+## ping [GET /ping]
+
+# Group refs
+
+## local [GET /refs/local]
+
++ Response 200 (text/plain)
+
+# Group repo
+
+## gc [GET /repo/gc]
+
++ Response 200 (text/plain)
+
+# Group resolve
+
+## resolve [GET /resolve]
+
+# Group stats
+
+## bw [GET /stats/bw]
+
++ Response 200 (text/plain)
+
+# Group swarm
+
+## addrs [GET /swarm/addrs]
+
++ Response 200 (text/plain)
+
+## addrs local [GET /swarm/addrs/local]
+
++ Response 200 (text/plain)
+
+## connect [GET /swarm/connect]
+
++ Response 200 (text/plain)
+
+## disconnect [GET /swarm/disconnect]
+
++ Response 200 (text/plain)
+
+## filters [GET /swarm/filters]
+
++ Response 200 (text/plain)
+
+## filters add [GET /swarm/filters/add]
+
++ Response 200 (text/plain)
+
+## filters rm [GET /swarm/filters/rm]
+
++ Response 200 (text/plain)
+
+## peers [GET /swarm/peers]
+
++ Response 200 (text/plain)
+
+# Group tar
+
+## add [GET /tar/add]
+
++ Response 200 (text/plain)
+
+## cat [GET /tar/cat]
+
++ Response 200 (text/plain)
+
+# Group tour
+
+## list [GET /tour/list]
+
++ Response 200 (text/plain)
+
+## next [GET /tour/next]
+
++ Response 200 (text/plain)
+
+## restart [GET /tour/restart]
+
++ Response 200 (text/plain)
+
+# Group update
+
+## update [GET /update]
+
+# Group version
+
+## version [GET /version]
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - Version: `0.3.9` (string)
+        - Commit: b036b23a233a64faa6a456522b0f45763be70e64 (string)
 
 # Data Structures
 
 ## Hash (string)
-An IPFS hash
+An hash
 
 ### Sample
 QmNjRVohhWBX31EoaAXkrj5mPF9vQNcTVvQgWHNwdxweCN
