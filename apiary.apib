@@ -166,11 +166,7 @@ timeout. If the timeout is too small, some peers may not be reached.
 The default timeout is 20 seconds.
 
 + Parameters
-    + vis (enum, optional)
-        - `plain text` (string) - easy to read
-        - `d3` (string) - json ready to be fed into d3view
-        - `dot` (string) - graphviz format
-
+    + vis (enum[string], optional)
         The d3 format will output a json object ready to be consumed by
         the chord network viewer, available at the following hash:
 
@@ -188,9 +184,16 @@ The default timeout is 20 seconds.
         The dot format can be fed into graphviz and other programs
         that consume the dot format to generate graphs of the network.
 
+        + Members
+            - `plain text` - easy to read
+            - `d3` - json ready to be fed into d3view
+            - `dot` - graphviz format
+
+
 + Response 200 (text/plain)
 
     + Body
+
         ```
         ID QmVnWL4CVWAaQHuuJQMgskDDyFwA1pqA2cC5ZTnQnB5yJt up 60449 seconds connected to 4:
         ID QmSoLju6m7xTh3DuokvT3886QRYqxAzb1kShaanJgW36yx connections: 1 latency: 354632446 ns
@@ -281,6 +284,7 @@ Print out information about your computer to aid in debugging.
         + ProtocolVersion (string)
 
     + Body
+
         ```
         {
           "ID": "QmVnWL4CVWAaQHuuJQMgskDDyFwA1pqA2cC5ZTnQnB5yJt",
@@ -448,11 +452,13 @@ to add or remove said filters. Filters are specified using the multiaddr-filter 
 ```
 /ip4/192.168.0.0/ipcidr/16
 ```
+
 Where the above is equivalent to the standard CIDR:
 
 ```
 192.168.0.0/16
 ```
+
 Filters default to those specified under the `"Swarm.AddrFilters"` config key.
 
 + Response 200 (application/json)
@@ -515,6 +521,7 @@ Start the tour
 + Response 200 (text/plain)
 
     + Body
+
         ```
         - * 0.0   Hello Mars
         -   0.1   Hello Mars
@@ -537,6 +544,7 @@ Show a list of all tour topics.
 + Response 200 (text/plain)
 
     + Body
+
         ```
         Tour 0.0 - Hello Mars
         ```
@@ -548,6 +556,7 @@ Show the next tour topic.
 + Response 200 (text/plain)
 
     + Body
+
         ```
         Tour 0.1 - Hello Mars
         ```
