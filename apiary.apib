@@ -252,10 +252,27 @@ Print out information about your computer to aid in debugging.
            - version: `go1.5.1` (string)
 
 # Group dns
+DNS link resolver.
 
-## dns [GET /dns]
+## dns [GET /dns{?arg}]
+Multihashes are hard to remember, but domain names are usually easy to
+remember. To create memorable aliases for multihashes, DNS TXT
+records can point to other DNS links, IPFS objects, IPNS keys, etc.
+This command resolves those links to the referenced object.
 
-+ Response 200 (text/plain)
+The following response expamles assume this DNS TXT record:
+
+```
+ipfs.io. TXT "dnslink=/ipfs/QmRzTuh2Lpuz7Gr39stNr6mTFdqAghsZec1JoUnfySUzcy ..."
+```
+
++ Parameters
+    + arg (string, required) - DNS name
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        - Path: `/ipfs/QmTgNJEgQaCqRht9KSXNyZsCp2xpHZmBRms28NRMmtcERp` (Multihash)
 
 # Group file
 
