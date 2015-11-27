@@ -105,8 +105,13 @@ TODO
 # Group commands
 
 ## commands [GET /commands]
+Lists all available commands (and subcommands) that are available.
 
 + Response 200 (applications/json)
+
+    + Attributes (object)
+        - Name: IPFS (string)
+        - Subcommands (array)
 
 # Group config
 
@@ -207,12 +212,6 @@ TODO
         }
         ```
 
-# Group init
-
-## init [GET /init]
-
-+ Response 200 (text/plain)
-
 # Group log
 
 ## level [GET /log/level]
@@ -230,8 +229,11 @@ TODO
 + Response 200 (text/plain)
 
 # Group mount
+Mount ipfs at a read-only mountpoint on the OS (default: /ipfs and /ipns).
+All ipfs objects will be accessible under that directory. Note that the
+root will not be listable, as it is virtual. Access known paths directly.
 
-+ Response 200 (text/plain)
++ Response 200 (application/json)
 
 # Group name
 
@@ -244,6 +246,8 @@ TODO
 + Response 200 (text/plain)
 
 # Group object
+Interact with ipfs objects.
+
 ## data [GET /object/data]
 
 + Response 200 (text/plain)
