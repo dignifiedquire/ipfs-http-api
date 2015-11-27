@@ -407,15 +407,31 @@ Interact with ipfs objects.
 
 + Response 200 (text/plain)
 
+
 # Group repo
+Manipulate the IPFS repo.
 
 ## gc [GET /repo/gc]
+Sweep the local set of stored objects and remove ones that are not pinned in
+order to reclaim hard disk space.
 
 + Response 200 (text/plain)
 
+
 # Group resolve
+Resolve the value of names to IPFS.
 
 ## resolve [GET /resolve]
+There are a number of mutable name protocols that can link among
+themselves and into IPNS.  For example IPNS references can (currently)
+point at IPFS object, and DNS links can point at other DNS links, IPNS
+entries, or IPFS objects. This command accepts any of these
+identifiers and resolves them to the referenced item.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        - Path: `/ipfs/QmeuehsX78RCnHnqxq9o7A1pC5ShrtAcDE3pzwyWjXzeZF` (MultiAddr)
 
 # Group stats
 Query IPFS statistics.
