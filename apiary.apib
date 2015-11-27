@@ -20,7 +20,7 @@ Show some diagnostic information on the bitswap agent
         + ProvideBufLen: 0 (number)
         + Wantlist (array, nullable)
         + Peers (array)
-            - QmNjRVohhWBX31EoaAXkrj5mPF9vQNcTVvQgWHNwdxweCN (Hash)
+            - QmNjRVohhWBX31EoaAXkrj5mPF9vQNcTVvQgWHNwdxweCN (Multihash)
         + BlocksReceived: 0 (number)
         + DupBlksReceived: 0 (number)
         + DupDataReceived: 0 (number)
@@ -29,7 +29,7 @@ Show some diagnostic information on the bitswap agent
 Remove a given block from your wantlist
 
 + Parameters
-    + arg (Hash, required) - key to remove from your wantlist
+    + arg (Multihash, required) - key to remove from your wantlist
 
 + Response 200 (application/json)
 
@@ -38,7 +38,7 @@ Remove a given block from your wantlist
 Show blocks currently on the wantlist
 
 + Parameters
-    + peer (Hash, optional)
+    + peer (Multihash, optional)
 
         specify which peer to show wantlist for (default self)
 
@@ -55,20 +55,20 @@ A plumbing command used to manipulate raw ipfs blocks.
 Retrieve information on a raw ipfs block.
 
 + Parameters
-    + arg (Hash, required) - hash of the block to retrieve stats on
+    + arg (Multihash, required) - hash of the block to retrieve stats on
 
 + Response 200 (application/json)
 
     + Attributes (object)
-        + Key: Qmb9Ru8XjPDAokAYE6rVzLwn3dEB4fxijgVMga1CcS95kJ (Hash)
+        + Key: Qmb9Ru8XjPDAokAYE6rVzLwn3dEB4fxijgVMga1CcS95kJ (Multihash)
         + Size: 262158 (number) - the size of the block in bytes
 
-## get [GET /block/get?{arg}]
+## get [GET /block/get{?arg}]
 
 Store data as a raw ipfs block.
 
 + Parameters
-    + arg (Hash, required) - hash of the block to be fetched
+    + arg (Multihash, required) - hash of the block to be fetched
 
 + Response 200 (text/plain)
 
@@ -179,13 +179,15 @@ TODO
 ## id [GET /id]
 
 + Response 200 (application/json)
+
     + Attributes (object)
-        + ID (Hash)
+        + ID (Multihash)
         + PublicKey (string)
         + Addresses (array)
-            - (string)
+            - (Multihash)
         + AgentVersion (string)
         + ProtocolVersion (string)
+
     + Body
         ```
         {
@@ -310,68 +312,162 @@ TODO
 + Response 200 (text/plain)
 
 # Group swarm
+Swarm inspection tool.
 
 ## addrs [GET /swarm/addrs]
+List known addresses. Useful for debugging.
 
-+ Response 200 (text/plain)
++ Response 200 (application/json)
+
+    + Attributes (object)
+        - Addrs (SwarmAddrs)
 
 ## addrs local [GET /swarm/addrs/local]
+List all local addresses.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        - Strings (array)
+            - "/ip4/127.0.0.1/tcp/4001" (MultiAddr)
+
+## connect [GET /swarm/connect{?arg}]
+Open a connection to the given address.
+
++ Parameters
+    + arg (MultiAddr, required) - Address of the peer to connect to
 
 + Response 200 (text/plain)
 
-## connect [GET /swarm/connect]
 
-+ Response 200 (text/plain)
+## disconnect [GET /swarm/disconnect{?arg}]
+Close the connection to a given address.
 
-## disconnect [GET /swarm/disconnect]
++ Parameters
+    + arg (MultiAddr, required) - Address of the peer to disconnect from
 
 + Response 200 (text/plain)
 
 ## filters [GET /swarm/filters]
+List out all currently applied filters. The subcommands can be used
+to add or remove said filters. Filters are specified using the multiaddr-filter format:
 
-+ Response 200 (text/plain)
+**Example:**
 
-## filters add [GET /swarm/filters/add]
+```
+/ip4/192.168.0.0/ipcidr/16
+```
+Where the above is equivalent to the standard CIDR:
 
-+ Response 200 (text/plain)
+```
+192.168.0.0/16
+```
+Filters default to those specified under the `"Swarm.AddrFilters"` config key.
 
-## filters rm [GET /swarm/filters/rm]
++ Response 200 (application/json)
 
-+ Response 200 (text/plain)
+    + Attributes (object)
+        - Strings (array)
+            - "/ip4/192.168.0.0/ipcidr/16" (MultiAddr)
+
+
+## filters add [GET /swarm/filters/add{?arg}]
+Add the given multiaddr to the filter list.
+
++ Parameters
+    + arg (MultiAddr, required) - Address to add to the filter list
+
++ Response 200 (application/json)
+
+## filters rm [GET /swarm/filters/rm{?arg}]
+Remove the given multiaddr from the filter list.
+
++ Parameters
+    + arg (MultiAddr, required) - Address to remove from the filter list
+
++ Response 200 (application/json)
 
 ## peers [GET /swarm/peers]
+List the set of peers the node is connected to.
 
-+ Response 200 (text/plain)
++ Response 200 (application/json)
+
+    + Attributes (object)
+        - Strings (array)
+            - "/ip4/104.233.87.68/tcp/55125/ipfs/QmdAYL426boH1RRFR6JABaNT4JNfrEJV1coiPfKytpPVwP" (MultiAddr)
 
 # Group tar
+Utility functions for tar files in ipfs
 
 ## add [GET /tar/add]
+Import a tar file into ipfs
 
 + Response 200 (text/plain)
 
 ## cat [GET /tar/cat]
+Export a tar file from ipfs
 
 + Response 200 (text/plain)
 
 # Group tour
+This is a tour that takes you through various IPFS concepts,
+features, and tools to make sure you get up to speed with
+IPFS very quickly.
+
+## tour [GET /tour{?arg}]
+
+Start the tour
+
++ Parameters
+    + arg (string, optional) - Topic id to go to
+
++ Response 200 (text/plain)
+
+    + Body
+        ```
+        - * 0.0   Hello Mars
+        -   0.1   Hello Mars
+        -   0.2   About IPFS
+        -   1.1   Filesystem
+        -   1.2   Getting Files
+        -   1.3   Adding Files
+        -   1.4   Directories
+        -   1.5   Distributed
+        -   1.6   Getting Files
+        -   2.0   Basics - init
+        -   2.1   Basics - help
+        -   2.2   Basics - update
+        -   2.3   Basics - config
+        ```
 
 ## list [GET /tour/list]
+Show a list of all tour topics.
 
 + Response 200 (text/plain)
+
+    + Body
+        ```
+        Tour 0.0 - Hello Mars
+        ```
+
 
 ## next [GET /tour/next]
+Show the next tour topic.
 
 + Response 200 (text/plain)
+
+    + Body
+        ```
+        Tour 0.1 - Hello Mars
+        ```
 
 ## restart [GET /tour/restart]
+Restart the IPFS Tour
 
-+ Response 200 (text/plain)
-
-# Group update
-
-## update [GET /update]
++ Response 200 (application/json)
 
 # Group version
+Show version details about the ipfs node.
 
 ## version [GET /version]
 
@@ -382,8 +478,38 @@ TODO
 
 # Data Structures
 
-## Hash (string)
-An hash
+## Multihash (string)
+An hash as defined [here](https://github.com/jbenet/multihash)
 
 ### Sample
 QmNjRVohhWBX31EoaAXkrj5mPF9vQNcTVvQgWHNwdxweCN
+
+
+## SwarmAddrs (object)
+A list of swarm addresses.
+
+### Sample
+```
+"QmNRCEwFMgCcbjNk5bFud9oqjJduvjBNbkiM8SuxuLh3GS": [
+  "/ip4/127.0.0.1/tcp/4001",
+  "/ip4/172.17.42.1/tcp/4001",
+  "/ip4/192.168.2.3/tcp/4001",
+  "/ip6/::1/tcp/4001"
+],
+"QmNRV7kyUxYaQ4KQxFXPYm8EfuzJbtGn1wSFenjXL6LD8y": [
+  "/ip4/127.0.0.1/tcp/4001",
+  "/ip4/172.17.42.1/tcp/4001",
+  "/ip4/5.9.33.222/tcp/4001",
+  "/ip6/2a01:4f8:161:124a::1337:cafe/tcp/4001",
+  "/ip6/2a01:4f8:161:124a::2/tcp/4001",
+  "/ip6/::1/tcp/4001",
+  "/ip6/fcfc:762a:e12a:245d:8e5b:6a40:f65:acab/tcp/4001"
+]
+```
+
+
+## MultiAddr (string)
+A multiaddr as defined [here](https://github.com/jbenet/multiaddr).
+
+### Sample
+`/ip6/fcfc:762a:e12a:245d:8e5b:6a40:f65:acab/tcp/4001`
