@@ -398,8 +398,39 @@ Interact with ipfs objects.
 + Response 200 (text/plain)
 
 # Group ping
+Send echo request packets to IPFS hosts
 
 ## ping [GET /ping]
+A tool to test sending data to other nodes. It finds nodes
+via the routing system, send pings, wait for pongs, and print out round-
+trip latency information.
+
++ Response 200 (application/json)
+    + Headers
+
+        ```
+        X-Chunked-Output: 1
+        ```
+
+    + Body
+
+        ```
+        {
+          "Success": false,
+          "Time": 0,
+          "Text": "PING QmSqn9NJaPrdvDRQxUC2FMQWjJQnvbjUuMoXvA8hm5Nx1b."
+        }
+        {
+          "Success": true,
+          "Time": 113267897,
+          "Text": ""
+        }
+        {
+          "Success": true,
+          "Time": 56161127,
+          "Text": ""
+        }
+        ```
 
 # Group refs
 
