@@ -418,10 +418,19 @@ Interact with ipfs objects.
 ## resolve [GET /resolve]
 
 # Group stats
+Query IPFS statistics.
 
 ## bw [GET /stats/bw]
+Print ipfs bandwidth information.
 
-+ Response 200 (text/plain)
++ Response 200 (application/json)
+
+    + Attributes (object)
+        - TotalIn: 119395 (number)
+        - TotalOut: 47349 (number)
+        - RateIn: `296.8016259649661` (number)
+        - RateOut: `199.70053032537362` (number)
+
 
 # Group swarm
 Swarm inspection tool.
