@@ -83,31 +83,146 @@ TODO
 
 
 # Group bootstrap
+Show or edit the list of bootstrap peers.
 
-## add [GET /bootstrap/add]
+Running `ipfs bootstrap` with no arguments will run `ipfs bootstrap list`.
 
-+ Response 200 (text/json)
+**Security Warning**:
+
+The bootstrap command manipulates the `bootstrap list`, which contains
+the addresses of bootstrap nodes. These are the *trusted peers* from
+which to learn about other peers in the network. Only edit this list
+if you understand the risks of adding or removing nodes from this list.
+
+## add [GET /bootstrap/add{?arg,&default}]
+Add peers to the bootstrap list
+
+Outputs a list of peers that were added (that weren't already
+in the bootstrap list).
+
++ Parameters
+    + arg (Multiaddr, required) - A peer to add to the bootstrap list
+    + default (boolean, optional) - add default bootstrap nodes
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + Peers (array)
+            - (Multihash)
+
+    + Body
+
+        ```
+        {
+          "Peers": [
+            "/ip4/5.9.33.222/tcp/4001/ipfs/QmNRV7kyUxYaQ4KzxFXPYm8EfuzJbtGn1wSFenjXL6LD8y"
+          ]
+        }
+        ```
+
++ Response 400 (application/json)
+
+    + Attributes (object)
+        + Message: no bootstrap peers to add (string)
+        + Code: 1 (number)
+
+    + Body
+
+        ```
+        {
+          "Message": "no bootstrap peers to add",
+          "Code": 1
+        }
+        ```
+
++ Response 500 (application/json)
+
+    + Attributes (object)
+        + Message: invalid multiaddr, must begin with / (string)
+        + Code: 0 (number)
+
+    + Body
+
+        ```
+        {
+          "Message": "invalid multiaddr, must begin with /",
+          "Code": 0
+        }
+        ```
+
 
 ## list [GET /bootstrap/list]
+Show peers in the bootstrap list
 
-+ Response 200 (text/plain)
+Peers are output in the format `<multiaddr>/<peerID>`.
 
-## rm [GET /bootstrap/rm]
++ Response 200 (application/json)
 
-+ Response 200 (text/plain)
+    + Attributes (object)
+        + Peers (array)
+            - (Multihash)
+    + Body
 
-# Group cat
+        ```
+        {
+          "Peers": [
+            "/ip4/104.131.131.82/tcp/4001/ipfs/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
+            "/ip4/104.236.176.52/tcp/4001/ipfs/QmSoLnSGccFuZQJzRadHn95W2CrSFmZuTdDWP8HXaHca9z",
+            "/ip4/104.236.179.241/tcp/4001/ipfs/QmSoLpPVmHKQ4XTPdz8tjDFgdeRFkpV8JgYq8JVJ69RrZm",
+            "/ip4/162.243.248.213/tcp/4001/ipfs/QmSoLueR4xBeUbY9WZ9xGUUxunbKWcrNFTDAadQJmocnWm",
+            "/ip4/128.199.219.111/tcp/4001/ipfs/QmSoLSafTMBsPKadTEgaXctDQVcqN88CNLHXMkTNwMKPnu",
+            "/ip4/104.236.76.40/tcp/4001/ipfs/QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64",
+            "/ip4/178.62.158.247/tcp/4001/ipfs/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd",
+            "/ip4/178.62.61.185/tcp/4001/ipfs/QmSoLMeWqB7YGVLJN3pNLQpmmEk35v6wYtsMGLzSr5QBU3",
+            "/ip4/104.236.151.122/tcp/4001/ipfs/QmSoLju6m7xTh3DuokvT3886QRYqxAzb1kShaanJgW36yx"
+          ]
+        }
+        ```
 
-## cat [GET /cat]
+## rm [GET /bootstrap/rm{?arg,&all}]
+Removes peers from the bootstrap list
 
-+ Response 200 (text/plain)
+Outputs the list of peers that were removed.
+
++ Parameters
+    + arg (Multiaddr, optional) - A peer to add to the bootstrap list
+    + all (bool, optional) Remove all bootstrap peers.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + Peers (array)
+            - (Multihash)
+
+    + Body
+
+        ```
+        {
+          "Peers": []
+        }
+        ```
+
++ Response 500 (application/json)
+
+    + Attributes (object)
+        + Message: invalid ipfs address (string)
+        + Code: 0 (number)
+
+    + Body
+
+        ```
+        {
+          "Message": "invalid ipfs address",
+          "Code": 0
+        }
+        ```
 
 # Group commands
 
 ## commands [GET /commands]
 Lists all available commands (and subcommands) that are available.
 
-+ Response 200 (applications/json)
++ Response 200 (application/json)
 
     + Attributes (object)
         - Name: IPFS (string)
